@@ -11,4 +11,12 @@ class AssetsImage {
   static const appIconSVG = "$iconsPath/app_icon.svg";
   static const connectSVG = "$iconsPath/connect.svg";
   static const plugSVG = "$iconsPath/plug.svg";
+
+
+
+  static const chatStatusSvg = "$iconsPath/chatStatus.svg";
+  static const chatSendSvg = "$iconsPath/send.svg";
+  static const chatGallerySvg = "$iconsPath/gallery.svg";
+  static const chatMicSvg = "$iconsPath/mic.svg";
+
 }

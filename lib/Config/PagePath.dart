@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:zapp/Pages/HomePage/HomePage.dart';
+import 'package:zapp/Pages/Chat/ChatPage.dart';
 
 import '../Pages/Auth/AuthPage.dart';
+import '../Pages/Home/HomePage.dart';
 
 var pagePath = [
   GetPage(
@@ -13,6 +14,12 @@ var pagePath = [
   GetPage(
     name: "/homePage",
     page: () => HomePage(),
+    transition: Transition.rightToLeftWithFade,
+    transitionDuration: const Duration(milliseconds: 600),
+  ),
+  GetPage(
+    name: "/chatPage",
+    page: () => ChatPage(),
     transition: Transition.rightToLeftWithFade,
     transitionDuration: const Duration(milliseconds: 600),
   ),

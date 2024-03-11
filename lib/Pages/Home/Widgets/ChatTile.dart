@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../Config/Images.dart';
 
 class ChatTile extends StatelessWidget {
-  const ChatTile({super.key});
+  final String imageUrl;
+  final String name;
+  final String lastChat;
+  final String lastTime;
+  const ChatTile({super.key, required this.imageUrl, required this.name, required this.lastChat, required this.lastTime});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class ChatTile extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                AssetsImage.girlPic,
+                imageUrl,
                 width: 70,
               ),
               SizedBox(width: 15,),
@@ -28,12 +32,12 @@ class ChatTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Chandramukhi",
+                    name,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   SizedBox(height: 5,),
                   Text(
-                    "Ami Je Tomar",
+                    lastChat,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],
@@ -41,7 +45,7 @@ class ChatTile extends StatelessWidget {
             ],
           ),
           Text(
-            "08:33 PM",
+            lastTime,
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ],

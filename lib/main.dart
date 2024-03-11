@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:zapp/Config/PagePath.dart';
 import 'package:zapp/Config/Themes.dart';
-import 'package:zapp/Pages/Auth/AuthPage.dart';
-import 'package:zapp/Pages/HomePage/HomePage.dart';
-import 'package:zapp/Pages/SplashPage/SplashPage.dart';
-import 'package:zapp/Pages/Welcome/WelcomePage.dart';
+import 'package:zapp/Pages/Home/HomePage.dart';
 
 void main() {
   runApp(const MyApp());

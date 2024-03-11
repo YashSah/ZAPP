@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zapp/Config/Images.dart';
-import 'package:zapp/Pages/HomePage/Widgets/ChatsList.dart';
-import 'package:zapp/Pages/HomePage/Widgets/TabBar.dart';
 
 import '../../Config/Strings.dart';
+import 'Widgets/ChatsList.dart';
+import 'Widgets/TabBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
