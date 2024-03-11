@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:zapp/Config/Images.dart';
 
 import '../../Config/Strings.dart';
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed("/profilePage");
+            },
             icon: Icon(
               Icons.more_vert,
             ),

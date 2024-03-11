@@ -5,6 +5,7 @@ import 'package:zapp/Config/PagePath.dart';
 import 'package:zapp/Config/Themes.dart';
 import 'package:zapp/Pages/Auth/AuthPage.dart';
 import 'package:zapp/Pages/Home/HomePage.dart';
+import 'package:zapp/Pages/SplashPage/SplashPage.dart';
 import 'package:zapp/firebase_options.dart';
 
 void main() async{
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       getPages: pagePath,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: AuthPage(),
+      home: SplashPage(),
     );
   }
 }
