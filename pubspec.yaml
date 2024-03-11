@@ -39,6 +39,8 @@ dependencies:
   slide_to_act: ^2.0.2
   shimmer: ^3.0.0
   get: ^4.6.6
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.8
 
 dev_dependencies:
   flutter_test:
