@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:zapp/Config/Images.dart';
+import 'package:zapp/Controller/AuthController.dart';
+import 'package:zapp/Controller/ImagePicker.dart';
 import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Widget/PrimaryButton.dart';
 
@@ -18,9 +22,23 @@ class ProfilePage extends StatelessWidget {
     TextEditingController email = TextEditingController(text: profileController.currentUser.value.email);
     TextEditingController phone = TextEditingController(text: profileController.currentUser.value.phoneNumber);
     TextEditingController about = TextEditingController(text: profileController.currentUser.value.about);
+
+    ImagePickerController imagePickerController = Get.put(ImagePickerController());
+    RxString imagePath = "".obs;
+
+    AuthController authController = Get.put(AuthController());
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authController.logoutUser();
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -50,16 +68,29 @@ class ProfilePage extends StatelessWidget {
                                 clipBehavior: Clip.none,
                                 fit: StackFit.expand,
                                 children: [
-                                  CircleAvatar(
-                                    backgroundColor: Theme.of(context).colorScheme.background,
-                                    radius: 80,
-                                    child: Icon(Icons.image),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: Theme.of(context).colorScheme.background,
+                                    ),
+                                    child: profileController.currentUser.value.profileImage == "" || profileController.currentUser.value.profileImage == null
+                                        ? Icon(Icons.image)
+                                        : ClipRRect(
+                                            borderRadius: BorderRadius.circular(100),
+                                            child: Image.network(profileController.currentUser.value.profileImage!,
+                                              fit: BoxFit.cover,
+                                            ),
+                                    ),
                                   ),
                                   Positioned(
                                     bottom: 0,
                                     right: -25,
                                     child: RawMaterialButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+                                        imagePath.value = await imagePickerController.pickImage();
+
+                                        print("Image Picked Successfully!" + imagePath.value);
+                                      },
                                       elevation: 2.0,
                                       fillColor: Theme.of(context).colorScheme.secondary,
                                       child: SvgPicture.asset(AssetsImage.chatGallerySvg, color: Colors.white,),
@@ -131,7 +162,8 @@ class ProfilePage extends StatelessWidget {
                         Obx(() => isEdit.value ? PrimaryButton(
                           btnName: "Save",
                           icon: Icons.save,
-                          ontap: (){
+                          ontap: () async{
+                            await profileController.updateProfile(imagePath.value, name.text, about.text, phone.text);
                             isEdit.value = false;
                           },
                         ) : PrimaryButton(
