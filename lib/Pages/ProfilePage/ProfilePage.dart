@@ -73,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(100),
                                       color: Theme.of(context).colorScheme.background,
                                     ),
-                                    child: profileController.currentUser.value.profileImage == "" || profileController.currentUser.value.profileImage == null
+                                    child: profileController.currentUser.value.profileImage == null || profileController.currentUser.value.profileImage == ""
                                         ? Icon(Icons.image)
                                         : ClipRRect(
                                             borderRadius: BorderRadius.circular(100),

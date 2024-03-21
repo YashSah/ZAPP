@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:zapp/Pages/Chat/ChatPage.dart';
 
 import '../Pages/Auth/AuthPage.dart';
+import '../Pages/ContactPage/ContactPage.dart';
 import '../Pages/Home/HomePage.dart';
+import '../Pages/ProfilePage/ProfilePage.dart';
 
 var pagePath = [
   GetPage(
@@ -23,12 +25,22 @@ var pagePath = [
     transition: Transition.rightToLeftWithFade,
     transitionDuration: const Duration(milliseconds: 600),
   ),
-  // GetPage(
-  //   name: "/profilePage",
-  //   page: () => UserProfilePage(),
-  //   transition: Transition.rightToLeftWithFade,
-  //   transitionDuration: const Duration(milliseconds: 600),
-  // ),
+  GetPage(
+    name: "/profilePage",
+    page: () => ProfilePage(),
+    transition: Transition.rightToLeftWithFade,
+    transitionDuration: const Duration(milliseconds: 600),
+  ),
+  GetPage(
+    name: "/contactPage",
+    page: () => ContactPage(),
+    transition: Transition.rightToLeftWithFade,
+    transitionDuration: const Duration(milliseconds: 600),
+  ),
+
+
+
+
   // GetPage(
   //   name: "/updateProfilePage",
   //   page: () => UserUpdateProfile(),

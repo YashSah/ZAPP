@@ -16,47 +16,49 @@ class ChatsList extends StatelessWidget {
             Get.toNamed("/chatPage");
           },
           child: ChatTile(
-            imageUrl: AssetsImage.girlPic,
+            imageUrl: AssetsImage.defaultProfileUrl,
             name: "Divyana Kumari",
             lastChat: "Baad me baat krte hai okay.",
             lastTime: "09:23 PM",
           ),
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Abhishek Saraswat",
           lastChat: "petha leke aayu hun",
           lastTime: "10:55 AM",
         ),ChatTile(
-          imageUrl: AssetsImage.girlPic,
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Divyana Kumari",
           lastChat: "Baad me baat krte hai okay.",
           lastTime: "09:23 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Abhishek Saraswat",
           lastChat: "petha leke aayu hun",
           lastTime: "10:55 AM",
-        ),ChatTile(
-          imageUrl: AssetsImage.girlPic,
+        ),
+        ChatTile(
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Divyana Kumari",
           lastChat: "Baad me baat krte hai okay.",
           lastTime: "09:23 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Abhishek Saraswat",
           lastChat: "petha leke aayu hun",
           lastTime: "10:55 AM",
-        ),ChatTile(
-          imageUrl: AssetsImage.girlPic,
+        ),
+        ChatTile(
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Divyana Kumari",
           lastChat: "Baad me baat krte hai okay.",
           lastTime: "09:23 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.defaultProfileUrl,
           name: "Abhishek Saraswat",
           lastChat: "petha leke aayu hun",
           lastTime: "10:55 AM",

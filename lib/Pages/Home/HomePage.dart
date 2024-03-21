@@ -50,9 +50,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           ),
           IconButton(
             onPressed: () async{
-              // Get.toNamed("/profilePage");
               await profileController.getUserDetails();
-              Get.to(ProfilePage());
+              Get.toNamed("/profilePage");
             },
             icon: Icon(
               Icons.more_vert,
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          Get.toNamed("/contactPage");
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(

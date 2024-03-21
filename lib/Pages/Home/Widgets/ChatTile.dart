@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Config/Images.dart';
@@ -21,28 +22,43 @@ class ChatTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Image.asset(
-                imageUrl,
-                width: 70,
-              ),
-              SizedBox(width: 15,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(context).textTheme.bodyLarge,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(
+                  height: 70,
+                  width: 70,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(
+                      imageUrl,
+                      width: 70,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  SizedBox(height: 5,),
-                  Text(
-                    lastChat,
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(width: 15,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    SizedBox(height: 5,),
+                    SizedBox(
+                      width: 200,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        lastChat,
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Text(
             lastTime,
