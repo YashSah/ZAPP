@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
 
 import '../../Config/Images.dart';
+import '../../Model/ChatModel.dart';
+import '../../Model/UserModel.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+  final UserModel userModel;
+  const ChatPage({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
+    ChatController chatController = Get.put(ChatController());
+    TextEditingController messageController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,8 +35,8 @@ class ChatPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Yash Sah",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  userModel.name ?? userModel.email!,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
                   "Online",
@@ -69,7 +75,8 @@ class ChatPage extends StatelessWidget {
             SizedBox(width: 10,),
             Expanded(
               child: TextField(
-                decoration: InputDecoration(
+                controller: messageController,
+                decoration: const InputDecoration(
                   filled: false,
                   hintText: "Text Message",
                 ),
@@ -82,10 +89,18 @@ class ChatPage extends StatelessWidget {
                 child: SvgPicture.asset(AssetsImage.chatGallerySvg, width: 25,)
             ),
             SizedBox(width: 10,),
-            Container(
-                width: 30,
-                height: 30,
-                child: SvgPicture.asset(AssetsImage.chatSendSvg, width: 25,)
+            InkWell(
+              onTap: () {
+                if(messageController.text.isNotEmpty) {
+                  chatController.sendMessage(userModel.id!, messageController.text);
+                  messageController.clear();
+                }
+              },
+              child: Container(
+                  width: 30,
+                  height: 30,
+                  child: SvgPicture.asset(AssetsImage.chatSendSvg, width: 25,)
+              ),
             ),
           ],
         ),

@@ -34,7 +34,7 @@ class ChatTile extends StatelessWidget {
                     child: Image.network(
                       imageUrl,
                       width: 70,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.cover ,
                     ),
                   ),
                 ),

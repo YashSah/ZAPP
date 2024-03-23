@@ -19,12 +19,12 @@ var pagePath = [
     transition: Transition.rightToLeftWithFade,
     transitionDuration: const Duration(milliseconds: 600),
   ),
-  GetPage(
-    name: "/chatPage",
-    page: () => ChatPage(),
-    transition: Transition.rightToLeftWithFade,
-    transitionDuration: const Duration(milliseconds: 600),
-  ),
+  // GetPage(
+  //   name: "/chatPage",
+  //   page: () => ChatPage(),
+  //   transition: Transition.rightToLeftWithFade,
+  //   transitionDuration: const Duration(milliseconds: 600),
+  // ),
   GetPage(
     name: "/profilePage",
     page: () => ProfilePage(),

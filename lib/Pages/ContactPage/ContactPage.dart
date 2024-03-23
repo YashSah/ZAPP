@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Controller/ContactController.dart';
+import 'package:zapp/Pages/Chat/ChatPage.dart';
 import 'package:zapp/Pages/ContactPage/Widgets/ContactSearch.dart';
 import 'package:zapp/Pages/ContactPage/Widgets/NewContactTile.dart';
 
@@ -15,6 +17,7 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RxBool isSearchEnabled = false.obs;
     ContactController contactController = Get.put(ContactController());
+    ChatController chatController = Get.put(ChatController());
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +60,8 @@ class ContactPage extends StatelessWidget {
             Obx(() => Column(
               children: contactController.userList.map((e) => InkWell(
                 onTap: () {
-                  // Get.toNamed("/chatPage");
+                  // Get.toNamed("/chatPage", arguments: e);
+                  Get.to(ChatPage(userModel: e));
                 },
                 child: ChatTile(
                   imageUrl: e.profileImage ?? AssetsImage.defaultProfileUrl,
