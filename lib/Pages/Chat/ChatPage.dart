@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:zapp/Controller/ChatController.dart';
+import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
 
 import '../../Config/Images.dart';
@@ -16,6 +18,8 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ChatController chatController = Get.put(ChatController());
     TextEditingController messageController = TextEditingController();
+    ProfileController profileController = Get.put(ProfileController());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -107,40 +111,45 @@ class ChatPage extends StatelessWidget {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            ChatBubble(
-              message: "Hello! how are you?",
-              imageUrl: "",
-              isReceived: true,
-              status: "read",
-              time: "10:30 AM",
-            ),
-            ChatBubble(
-              message: "Hello! how are you?",
-              imageUrl: "",
-              isReceived: false,
-              status: "read",
-              time: "10:30 AM",
-            ),
-            ChatBubble(
-              message: "Hello! how are you?",
-              imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeEl2bqk3s5rDbTy4fJQJ7lJk7QNcpHaV8JQ&usqp=CAU",
-              isReceived: false,
-              status: "read",
-              time: "10:30 AM",
-            ),
-            ChatBubble(
-              message: "Hello! how are you?",
-              imageUrl: "",
-              isReceived: true,
-              status: "read",
-              time: "10:30 AM",
-            ),
-
-          ],
-        ),
+        padding: const EdgeInsets.only(bottom: 70, top: 10, left: 10, right: 10),
+        child: StreamBuilder<List<ChatModel>>(
+          stream: chatController.getMessages(userModel.id!),
+          builder: (context, snapshot) {
+            if(snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if(snapshot.hasError) {
+              return Center(
+                child: Text("Error: ${snapshot.error}"),
+              );
+            }
+            if(snapshot.data == null) {
+              return Center(
+                child: Text("No Messages"),
+              );
+            }
+            else {
+              return ListView.builder(
+                reverse: true,
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  DateTime timestamp =
+                      DateTime.parse(snapshot.data![index].timeStamp!);
+                  String formattedTime = DateFormat('hh:mm a').format(timestamp);
+                  return ChatBubble(
+                    message: snapshot.data![index].message!,
+                    isReceived: snapshot.data![index].senderId != profileController.currentUser.value.id,
+                    time: formattedTime,
+                    status: "read",
+                    imageUrl: snapshot.data![index].imageUrl ?? "",
+                  );
+                },
+              );
+            }
+          },
+        )
       ),
     );
   }
