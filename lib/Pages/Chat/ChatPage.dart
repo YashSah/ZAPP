@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
+import 'package:zapp/Pages/UserProfile/ProfilePage.dart';
 
 import '../../Config/Images.dart';
 import '../../Model/ChatModel.dart';
@@ -28,27 +29,34 @@ class ChatPage extends StatelessWidget {
             Get.back();
           },
         ),
-        title: Row(
-          children: [
-            Image.asset(
-              AssetsImage.boyPic,
-              width: 45,
-            ),
-            SizedBox(width: 5,),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userModel.name ?? userModel.email!,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Text(
-                  "Online",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
-            ),
-          ],
+        title: InkWell(
+          onTap: () {
+            Get.to(UserProfilePage(
+              userModel: userModel,
+            ));
+          },
+          child: Row(
+            children: [
+              Image.asset(
+                AssetsImage.boyPic,
+                width: 45,
+              ),
+              SizedBox(width: 5,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userModel.name ?? userModel.email!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Text(
+                    "Online",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         actions: [
           IconButton(
@@ -96,7 +104,7 @@ class ChatPage extends StatelessWidget {
             InkWell(
               onTap: () {
                 if(messageController.text.isNotEmpty) {
-                  chatController.sendMessage(userModel.id!, messageController.text);
+                  chatController.sendMessage(userModel.id!, messageController.text, userModel);
                   messageController.clear();
                 }
               },

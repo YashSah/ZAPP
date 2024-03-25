@@ -67,7 +67,7 @@ class ContactPage extends StatelessWidget {
                   imageUrl: e.profileImage ?? AssetsImage.defaultProfileUrl,
                   name: e.name ?? "User",
                   lastChat: e.about == "" || e.about == null ? "Hey there! I am ${e.name!}" : e.about!,
-                  lastTime: "",
+                  lastTime: e.email == chatController.auth.currentUser!.email ? "You" : "",
                 ),
               ),).toList(),
             )),
