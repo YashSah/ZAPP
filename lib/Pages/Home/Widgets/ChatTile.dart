@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../Config/Images.dart';
 
@@ -31,10 +33,12 @@ class ChatTile extends StatelessWidget {
                   width: 70,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      imageUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.cover,
                       width: 70,
-                      fit: BoxFit.cover ,
+                      placeholder: (context, url) => CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),
@@ -60,9 +64,11 @@ class ChatTile extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            lastTime,
-            style: Theme.of(context).textTheme.labelMedium,
+          Flexible(
+            child: Text(
+              lastTime,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
         ],
       ),

@@ -59,6 +59,8 @@ class ContactPage extends StatelessWidget {
             ),
             Obx(() => Column(
               children: contactController.userList.map((e) => InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onTap: () {
                   // Get.toNamed("/chatPage", arguments: e);
                   Get.to(ChatPage(userModel: e));

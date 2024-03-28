@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RxBool isEdit = false.obs;
+    RxBool isEdit = true.obs;
     ProfileController profileController = Get.put(ProfileController());
     TextEditingController name = TextEditingController(text: profileController.currentUser.value.name);
     TextEditingController email = TextEditingController(text: profileController.currentUser.value.email);
@@ -77,9 +76,12 @@ class ProfilePage extends StatelessWidget {
                                         ? Icon(Icons.image)
                                         : ClipRRect(
                                             borderRadius: BorderRadius.circular(100),
-                                            child: Image.network(profileController.currentUser.value.profileImage!,
-                                              fit: BoxFit.cover,
-                                            ),
+                                        child: CachedNetworkImage(
+                                          imageUrl: profileController.currentUser.value.profileImage!,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                        ),
                                     ),
                                   ),
                                   Positioned(

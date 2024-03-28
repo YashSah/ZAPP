@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:zapp/Config/Images.dart';
+import 'package:zapp/Controller/ContactController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
 import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Pages/ProfilePage/ProfilePage.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     ProfileController profileController = Get.put(ProfileController());
-
+    ContactController contactController = Get.put(ContactController());
     ImagePickerController imagePickerController = Get.put(ImagePickerController());
 
     return Scaffold(
@@ -42,7 +43,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
         actions: [
           IconButton(
             onPressed: () {
-              imagePickerController.pickImage();
+              // imagePickerController.pickImage();
+              contactController.getChatRoomList();
             },
             icon: Icon(
               Icons.search,
