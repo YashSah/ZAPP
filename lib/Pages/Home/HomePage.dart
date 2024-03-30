@@ -5,6 +5,7 @@ import 'package:zapp/Config/Images.dart';
 import 'package:zapp/Controller/ContactController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
 import 'package:zapp/Controller/ProfileController.dart';
+import 'package:zapp/Pages/Groups/GroupsPage.dart';
 import 'package:zapp/Pages/ProfilePage/ProfilePage.dart';
 
 import '../../Config/Strings.dart';
@@ -80,13 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           controller: tabController,
           children: [
             ChatsList(),
-            ListView(
-              children: [
-                ListTile(
-                  title: Text("Name Yash"),
-                )
-              ],
-            ),
+            GroupsPage(),
             ListView(
               children: [
                 ListTile(

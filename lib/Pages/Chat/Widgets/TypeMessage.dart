@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
 
 import '../../../Config/Images.dart';
 import '../../../Model/UserModel.dart';
+import '../../../Widget/ImagePickerBottomSheet.dart';
 
 class TypeMessage extends StatelessWidget {
   final UserModel userModel;
@@ -62,8 +64,7 @@ class TypeMessage extends StatelessWidget {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      chatController.selectedImagePath.value =
-                          await imagePickerController.pickImage();
+                      ImagePickerBottomSheet(context, chatController, imagePickerController);
                     },
                     child: Container(
                         width: 30,
@@ -85,21 +86,21 @@ class TypeMessage extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   onTap: () {
                     if (messageController.text.isNotEmpty ||
-                          chatController.selectedImagePath.value.isNotEmpty) {
+                        chatController.selectedImagePath.value.isNotEmpty) {
                       chatController.sendMessage(
                           userModel.id!, messageController.text, userModel);
                       messageController.clear();
                     }
                   },
                   child: Container(
-                      width: 30,
-                      height: 30,
-                      child: chatController.isLoading.value
-                          ? CircularProgressIndicator()
-                          : SvgPicture.asset(
-                        AssetsImage.chatSendSvg,
-                        width: 25,
-                      ),
+                    width: 30,
+                    height: 30,
+                    child: chatController.isLoading.value
+                        ? CircularProgressIndicator()
+                        : SvgPicture.asset(
+                            AssetsImage.chatSendSvg,
+                            width: 25,
+                          ),
                   ),
                 )
               : Container(

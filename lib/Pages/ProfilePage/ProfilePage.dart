@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:zapp/Config/Images.dart';
 import 'package:zapp/Controller/AuthController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
@@ -89,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                                     right: -25,
                                     child: RawMaterialButton(
                                       onPressed: () async{
-                                        imagePath.value = await imagePickerController.pickImage();
+                                        imagePath.value = await imagePickerController.pickImage(ImageSource.gallery);
 
                                         print("Image Picked Successfully!" + imagePath.value);
                                       },

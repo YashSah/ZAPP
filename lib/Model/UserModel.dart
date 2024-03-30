@@ -8,6 +8,7 @@ class UserModel {
   String? createdAt;
   String? lastOnlineStatus;
   String? status;
+  String? role;
 
   UserModel(
       {this.id,
@@ -18,7 +19,9 @@ class UserModel {
         this.about,
         this.createdAt,
         this.lastOnlineStatus,
-        this.status});
+        this.status,
+        this.role
+      });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -30,6 +33,7 @@ class UserModel {
     createdAt = json['createdAt'];
     lastOnlineStatus = json['lastOnlineStatus'];
     status = json['status'];
+    role = json['role'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +47,7 @@ class UserModel {
     data['createdAt'] = this.createdAt;
     data['lastOnlineStatus'] = this.lastOnlineStatus;
     data['status'] = this.status;
+    data['role'] = this.role;
     return data;
   }
 }

@@ -6,6 +6,7 @@ import 'package:zapp/Controller/ContactController.dart';
 import 'package:zapp/Pages/Chat/ChatPage.dart';
 import 'package:zapp/Pages/ContactPage/Widgets/ContactSearch.dart';
 import 'package:zapp/Pages/ContactPage/Widgets/NewContactTile.dart';
+import 'package:zapp/Pages/Groups/NewGroup/NewGroup.dart';
 
 import '../../Config/Images.dart';
 import '../Home/Widgets/ChatTile.dart';
@@ -49,7 +50,9 @@ class ContactPage extends StatelessWidget {
             NewContactTile(
               btnName: "New Group",
               icon: Icons.group_add,
-              ontap: () {},
+              ontap: () {
+                Get.to(NewGroup());
+              },
             ),
             SizedBox(height: 10,),
             Row(
