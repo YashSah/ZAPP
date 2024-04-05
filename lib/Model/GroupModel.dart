@@ -40,8 +40,12 @@ class GroupModel {
     if(json["profileUrl"] is String) {
       profileUrl = json["profileUrl"];
     }
-    if(json["members"] is Map) {
-      json["members"] == null ? null : UserModel.fromJson(json["members"]);
+    if(json["members"] != null) {
+      members = List<UserModel>.from(
+        json["members"].map((memberJson) => UserModel.fromJson(memberJson)),
+      );
+    } else {
+      members = [];
     }
     if(json["createdAt"] is String) {
       createdAt = json["createdAt"];

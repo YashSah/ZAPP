@@ -12,52 +12,55 @@ class SelectedMembers extends StatelessWidget {
   Widget build(BuildContext context) {
     GroupController groupController = Get.put(GroupController());
     return Obx(
-          () => Row(
-        children: groupController.groupMembers
-            .map((e) => Stack(
-          children: [
-            Container(
-              margin: EdgeInsets.all(10),
-              width: 80,
-              height: 80,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: CachedNetworkImage(
-                  imageUrl: e.profileImage ??
-                      AssetsImage.defaultProfileUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      CircularProgressIndicator(),
-                  errorWidget: (context, url, error) =>
-                      Icon(Icons.error),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: InkWell(
-                onTap: () {
-                  groupController.groupMembers.remove(e);
-                },
-                child: Container(
-                  padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    color: Theme.of(context).colorScheme.secondary,
-                    size: 15,
+          () => SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                    children: groupController.groupMembers
+              .map((e) => Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                width: 80,
+                height: 80,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: CachedNetworkImage(
+                    imageUrl: e.profileImage ??
+                        AssetsImage.defaultProfileUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        Icon(Icons.error),
                   ),
                 ),
               ),
-            )
-          ],
-        ))
-            .toList(),
-      ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: InkWell(
+                  onTap: () {
+                    groupController.groupMembers.remove(e);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Icon(
+                      Icons.close,
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: 15,
+                    ),
+                  ),
+                ),
+              )
+            ],
+                    ))
+              .toList(),
+                  ),
+          ),
     );
   }
 }

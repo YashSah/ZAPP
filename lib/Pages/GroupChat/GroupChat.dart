@@ -6,24 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:zapp/Controller/ChatController.dart';
+import 'package:zapp/Controller/GroupController.dart';
 import 'package:zapp/Controller/ProfileController.dart';
+import 'package:zapp/Model/GroupModel.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
-import 'package:zapp/Pages/Chat/Widgets/TypeMessage.dart';
-import 'package:zapp/Pages/UserProfile/ProfilePage.dart';
+import 'package:zapp/Pages/GroupInfo/GroupInfo.dart';
 
 import '../../Config/Images.dart';
 import '../../Model/ChatModel.dart';
-import '../../Model/UserModel.dart';
+import 'GroupTypeMessage.dart';
 
-class ChatPage extends StatelessWidget {
-  final UserModel userModel;
+class GroupChat extends StatelessWidget {
+  final GroupModel groupModel;
 
-  const ChatPage({super.key, required this.userModel});
+  const GroupChat({super.key, required this.groupModel});
 
   @override
   Widget build(BuildContext context) {
-    ChatController chatController = Get.put(ChatController());
-    TextEditingController messageController = TextEditingController();
+    GroupController groupController = Get.put(GroupController());
     ProfileController profileController = Get.put(ProfileController());
 
     return Scaffold(
@@ -40,17 +40,16 @@ class ChatPage extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () {
-            Get.to(UserProfilePage(
-              userModel: userModel,
-            ));
+            Get.to(GroupInfo(groupModel: groupModel));
           },
           child: Row(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      userModel.profileImage ?? AssetsImage.defaultProfileUrl,
+                  imageUrl: groupModel.profileUrl == ""
+                      ? AssetsImage.defaultProfileUrl
+                      : groupModel.profileUrl!,
                   fit: BoxFit.cover,
                   width: 50,
                   height: 50,
@@ -67,28 +66,14 @@ class ChatPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userModel.name ?? userModel.email!,
+                      groupModel.name ?? "Group",
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    StreamBuilder(
-                      stream: chatController.getStatus(userModel.id!),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Text("..........");
-                        } else
-                          return Text(
-                            snapshot.data!.status ?? "",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: snapshot.data!.status == "Online"
-                                    ? Colors.green
-                                    : Colors.grey,
-                            ),
-                          );
-                      },
-                    )
+                    Text(
+                      "Online",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
                   ],
                 ),
               ),
@@ -110,12 +95,12 @@ class ChatPage extends StatelessWidget {
           padding:
               const EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
           child: Column(
-            children: [
+            children:  [
               Expanded(
                 child: Stack(
                   children: [
                     StreamBuilder<List<ChatModel>>(
-                      stream: chatController.getMessages(userModel.id!),
+                      stream: groupController.getGroupMessages(groupModel.id!),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -140,7 +125,7 @@ class ChatPage extends StatelessWidget {
                               DateTime timestamp = DateTime.parse(
                                   snapshot.data![index].timeStamp!);
                               String formattedTime =
-                                  DateFormat('hh:mm a').format(timestamp);
+                              DateFormat('hh:mm a').format(timestamp);
                               return ChatBubble(
                                 message: snapshot.data![index].message!,
                                 isReceived: snapshot.data![index].senderId !=
@@ -155,49 +140,49 @@ class ChatPage extends StatelessWidget {
                       },
                     ),
                     Obx(
-                      () => (chatController.selectedImagePath.value != "")
+                          () => (groupController.selectedImagePath.value != "")
                           ? Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 5),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: FileImage(
-                                          File(chatController
-                                              .selectedImagePath.value),
-                                        ),
-                                        fit: BoxFit.contain,
-                                      ),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    height: 500,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 5),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: FileImage(
+                                    File(groupController
+                                        .selectedImagePath.value),
                                   ),
-                                  Positioned(
-                                      right: 0,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          chatController
-                                              .selectedImagePath.value = "";
-                                        },
-                                        icon: Icon(Icons.close),
-                                      )),
-                                ],
+                                  fit: BoxFit.contain,
+                                ),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            )
+                              height: 500,
+                            ),
+                            Positioned(
+                                right: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    groupController
+                                        .selectedImagePath.value = "";
+                                  },
+                                  icon: Icon(Icons.close),
+                                )),
+                          ],
+                        ),
+                      )
                           : Container(),
                     ),
                   ],
                 ),
               ),
-              TypeMessage(
-                userModel: userModel,
+              GroupTypeMessage(
+                groupModel: groupModel,
               ),
             ],
           )),
