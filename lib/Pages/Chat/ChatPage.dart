@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:zapp/Controller/CallController.dart';
 import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
@@ -25,6 +26,7 @@ class ChatPage extends StatelessWidget {
     ChatController chatController = Get.put(ChatController());
     TextEditingController messageController = TextEditingController();
     ProfileController profileController = Get.put(ProfileController());
+    CallController callController = Get.put(CallController());
 
     return Scaffold(
       appBar: AppBar(
@@ -97,7 +99,9 @@ class ChatPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              callController.callAction(userModel, profileController.currentUser.value);
+            },
             icon: Icon(Icons.phone),
           ),
           IconButton(
