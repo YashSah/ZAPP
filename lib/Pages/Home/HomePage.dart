@@ -6,10 +6,12 @@ import 'package:zapp/Controller/ContactController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
 import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Controller/StatusController.dart';
+import 'package:zapp/Pages/CallHistory/CallHistory.dart';
 import 'package:zapp/Pages/Groups/GroupsPage.dart';
 import 'package:zapp/Pages/ProfilePage/ProfilePage.dart';
 
 import '../../Config/Strings.dart';
+import '../../Controller/CallController.dart';
 import 'Widgets/ChatsList.dart';
 import 'Widgets/TabBar.dart';
 
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     ContactController contactController = Get.put(ContactController());
     ImagePickerController imagePickerController = Get.put(ImagePickerController());
     StatusController statusController = Get.put(StatusController());
+    CallController callController = Get.put(CallController());
 
     return Scaffold(
       appBar: AppBar(
@@ -84,13 +87,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           children: [
             ChatsList(),
             GroupsPage(),
-            ListView(
-              children: [
-                ListTile(
-                  title: Text("Name Yash"),
-                )
-              ],
-            ),
+            CallHistory(),
           ],
         ),
       )

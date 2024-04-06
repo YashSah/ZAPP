@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:zapp/Controller/CallController.dart';
 import 'package:zapp/Controller/ChatController.dart';
 import 'package:zapp/Controller/ProfileController.dart';
+import 'package:zapp/Pages/CallPage/AudioCallPage.dart';
 import 'package:zapp/Pages/Chat/Widgets/ChatBubble.dart';
 import 'package:zapp/Pages/Chat/Widgets/TypeMessage.dart';
 import 'package:zapp/Pages/UserProfile/ProfilePage.dart';
@@ -15,6 +16,7 @@ import 'package:zapp/Pages/UserProfile/ProfilePage.dart';
 import '../../Config/Images.dart';
 import '../../Model/ChatModel.dart';
 import '../../Model/UserModel.dart';
+import '../CallPage/VideoCallPage.dart';
 
 class ChatPage extends StatelessWidget {
   final UserModel userModel;
@@ -100,12 +102,16 @@ class ChatPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              callController.callAction(userModel, profileController.currentUser.value);
+              Get.to(AudioCallPage(target: userModel));
+              callController.callAction(userModel, profileController.currentUser.value, "audio");
             },
             icon: Icon(Icons.phone),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(VideoCallPage(target: userModel));
+              callController.callAction(userModel, profileController.currentUser.value, "video");
+            },
             icon: Icon(Icons.video_call_outlined),
           ),
         ],

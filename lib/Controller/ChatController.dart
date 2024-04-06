@@ -7,6 +7,7 @@ import 'package:zapp/Controller/ProfileController.dart';
 import 'package:zapp/Model/ChatRoomModel.dart';
 import 'package:zapp/Model/UserModel.dart';
 
+import '../Model/CallModel.dart';
 import '../Model/ChatModel.dart';
 import 'ContactController.dart';
 
@@ -123,11 +124,27 @@ class ChatController extends GetxController {
         );
   }
 
-
   Stream<UserModel> getStatus(String uid) {
-    return db.collection("users").doc(uid).snapshots().map((event) {
-      return UserModel.fromJson(event.data()!);
-    },
+    return db.collection("users").doc(uid).snapshots().map(
+      (event) {
+        return UserModel.fromJson(event.data()!);
+      },
     );
+  }
+
+  Stream<List<CallModel>> getCalls() {
+    return db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("calls")
+        .orderBy("timestamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => CallModel.fromJson(doc.data()),
+              )
+              .toList(),
+        );
   }
 }
