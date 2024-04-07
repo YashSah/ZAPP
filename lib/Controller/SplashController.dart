@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:zapp/Pages/Welcome/WelcomePage.dart';
 
 class SplashController extends GetxController {
 
@@ -15,7 +16,7 @@ class SplashController extends GetxController {
   Future<void> splashHandle() async {
     Future.delayed(Duration(seconds: 3),() {
       if(auth.currentUser == null) {
-        Get.offAllNamed("/authPage");
+        Get.off(WelcomePage());
       } else {
         Get.offAllNamed("/homePage");
         print(auth.currentUser!.email);

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:zapp/Config/CustomMessage.dart';
 import 'package:zapp/Model/UserModel.dart';
 
 class AuthController extends GetxController {
@@ -19,6 +20,7 @@ class AuthController extends GetxController {
         password: password,
       );
       Get.offAllNamed("/homePage");
+      successMessage("Successfully Logged in");
     } on FirebaseAuthException catch(e) {
       if(e.code == 'user-not-found') {
         print("No user found for that email.");
@@ -43,9 +45,10 @@ class AuthController extends GetxController {
       await initUser(email, name);
       print("Account Created✌️");
       Get.offAllNamed("/homePage");
+      successMessage("Account Created Successfully!");
     } on FirebaseAuthException catch (e) {
       if(e.code == 'weak-password') {
-        print("The passwrod provided is too weak.");
+        print("The password provided is too weak.");
       } else if(e.code == 'email-already-in-use') {
         print("The account already exists for that email.");
       }
@@ -60,6 +63,7 @@ class AuthController extends GetxController {
   Future<void> logoutUser() async {
     await auth.signOut();
     Get.offAllNamed("/authPage");
+    successMessage("Successfully Logged Out");
   }
   
   

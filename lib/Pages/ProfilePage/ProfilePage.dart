@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zapp/Config/CustomMessage.dart';
 import 'package:zapp/Config/Images.dart';
 import 'package:zapp/Controller/AuthController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
@@ -167,6 +168,7 @@ class ProfilePage extends StatelessWidget {
                           icon: Icons.save,
                           ontap: () async{
                             await profileController.updateProfile(imagePath.value, name.text, about.text, phone.text);
+                            successMessage("Profile Updated!");
                             isEdit.value = false;
                           },
                         ) : PrimaryButton(
