@@ -36,8 +36,6 @@ class CallHistory extends StatelessWidget {
           } else {
             return Center(
               child: Container(
-                width: 200,
-                height: 200,
                 child: CircularProgressIndicator(),
               ),
             );
