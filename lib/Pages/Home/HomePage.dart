@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:zapp/Config/Images.dart';
+import 'package:zapp/Controller/AppController.dart';
 import 'package:zapp/Controller/ContactController.dart';
 import 'package:zapp/Controller/ImagePicker.dart';
 import 'package:zapp/Controller/ProfileController.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     ImagePickerController imagePickerController = Get.put(ImagePickerController());
     StatusController statusController = Get.put(StatusController());
     CallController callController = Get.put(CallController());
+    AppController appController = Get.put(AppController());
 
     return Scaffold(
       appBar: AppBar(
@@ -49,8 +51,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
         actions: [
           IconButton(
             onPressed: () {
-              // imagePickerController.pickImage();
-              contactController.getChatRoomList();
+
             },
             icon: Icon(
               Icons.search,

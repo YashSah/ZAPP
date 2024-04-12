@@ -56,6 +56,7 @@ class AuthController extends GetxController {
       print(e);
     }
     isLoading.value = false;
+
   }
 
 
